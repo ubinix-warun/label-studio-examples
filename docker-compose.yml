@@ -1,0 +1,23 @@
+version: '3.8'  # Use the latest version of Docker Compose
+services:
+  jupyter:
+    image: jupyter/base-notebook
+    ports:
+      - "10000:8888"
+    volumes:
+      - .:/home/jovyan/work/prj
+    command: start-notebook.sh
+    networks:
+      - jupy
+
+  label-studio:
+    image: heartexlabs/label-studio:latest
+    ports:
+      - "10001:8080"
+    volumes:
+      - .:/label-studio/data
+    networks:
+      - jupy
+
+networks:
+  jupy:
